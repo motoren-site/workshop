@@ -27,10 +27,6 @@ jobs:
        - name: Build latest
          run: docker build -t registry.digitalocean.com/olsen/brynjar:$(echo $GITHUB_SHA | head -c7) .
          
-       - name: DigitalOcean Docker Image Publish
-         uses: ripplr-io/docr-docker-publish@v1
-         with:
-          # Image path in the format registry-name/image-name
-          image_path: registry.digitalocean.com/olsen/brynjar:$(echo $GITHUB_SHA | head -c7)
-
-
+       - name: Build latest
+         run: docker push registry.digitalocean.com/olsen/brynjar:$(echo $GITHUB_SHA | head -c7) 
+   
