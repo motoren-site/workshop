@@ -3,40 +3,40 @@ name: Docker Image CI
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 permissions:
   contents: read
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-       - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-       - name: Log in to GitHub container registry
-         uses: docker/login-action@v1.10.0
-         with:
-           registry: registry.digitalocean.com/olsen
-           username: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
-           password: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
-           
-       - name: Build latest
-         run: docker build -t registry.digitalocean.com/olsen/brynjar:$(echo $GITHUB_SHA | head -c7) .
-         
-       - name: push latest
-         run: docker push registry.digitalocean.com/olsen/brynjar:$(echo $GITHUB_SHA | head -c7) 
-         
-       - name: Set up kubectl
-         uses: matootie/dokube@v1.3.4
-         with:
+      - name: Log in to GitHub container registry
+        uses: docker/login-action@v1.10.0
+        with:
+          registry: registry.digitalocean.com/olsen
+          username: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+          password: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
+
+      - name: Build latest
+        run: docker build -t registry.digitalocean.com/olsen/brynjar:$(echo $GITHUB_SHA | head -c7) .
+
+      - name: push latest
+        run: docker push registry.digitalocean.com/olsen/brynjar:$(echo $GITHUB_SHA | head -c7)
+
+      - name: push latest
+        run: docker push registry.digitalocean.com/olsen/brynjar:latest
+
+      - name: Set up kubectl
+        uses: matootie/dokube@v1.3.4
+        with:
           personalAccessToken: ${{ secrets.DIGITAL_OCEAN_TOKEN }}
           clusterName: k8s-miles
-          
+
       # Run any kubectl commands you want!
-       - name: Get nodes
-         run: kubectl get nodes | kubectl apply -f ${GITHUB_WORKSPACE}/deployment.yml | kubectl apply -f ${GITHUB_WORKSPACE}/ingress.yml | kubectl apply -f ${GITHUB_WORKSPACE}/service.yml
-   
+      - name: Get nodes
+        run: kubectl get nodes | kubectl apply -f ${GITHUB_WORKSPACE}/deployment.yml | kubectl apply -f ${GITHUB_WORKSPACE}/ingress.yml | kubectl apply -f ${GITHUB_WORKSPACE}/service.yml
