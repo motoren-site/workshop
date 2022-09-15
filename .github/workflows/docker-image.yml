@@ -38,5 +38,5 @@ jobs:
           
       # Run any kubectl commands you want!
        - name: Get nodes
-         run: kubectl get nodes
+         run: kubectl get nodes | kubectl create deployment kubernetes-brynjar --image=registry.digitalocean.com/olsen/brynjar:$(echo $GITHUB_SHA | head -c7)
    
