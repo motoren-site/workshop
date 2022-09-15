@@ -16,7 +16,12 @@ spec:
         app: kubernetes-brynjar
     spec:
       containers:
-        - name: kubernetes-brynjar
-          image: registry.digitalocean.com/olsen/brynjar:latest
-          ports:
-            - containerPort: 80
+      - name: kubernetes-brynjar
+        image: registry.digitalocean.com/olsen/brynjar:latest
+        ports:
+          - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
