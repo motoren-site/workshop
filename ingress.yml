@@ -9,12 +9,13 @@ metadata:
 spec:
   ingressClassName: nginx-example
   rules:
+  - host: "app.motoren.site"
   - http:
       paths:
       - path: /brynjar
         pathType: Prefix
         backend:
           service:
-            name: test
+            name: brynjar
             port:
               number: 80
