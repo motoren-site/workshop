@@ -34,7 +34,7 @@ jobs:
          uses: matootie/dokube@v1.4.0
          with:
           personalAccessToken: ${{ secrets.DIGITALOCEAN_TOKEN }}
-          clusterName: my-fabulous-cluster
+          clusterName: k8s-miles
           
       # Run any kubectl commands you want!
        - name: Get nodes
