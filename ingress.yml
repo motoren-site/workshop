@@ -9,7 +9,7 @@ metadata:
 spec:
   rules:
   - host: "app.motoren.site"
-  - http:
+    http:
       paths:
       - path: /brynjar
         pathType: Prefix
